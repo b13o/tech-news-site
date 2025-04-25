@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![スクリーンショット](https://github.com/user-attachments/assets/e43d51bc-417d-43c7-ab7e-fd15ad6ee0b8)
 
-## Getting Started
+# ニュースサイト（お問合せフォーム付き）
 
-First, run the development server:
+## 概要
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+このプロジェクトでは、架空のテック系ニュースサイトを構築します。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+メールフォームからニュースを購読することができます。また、個人・法人用のお問い合わせフォームも実装します。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 学習目標
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+今回のテーマは、React/ Next.js におけるフォームの実装について、学習します。
 
-## Learn More
+特に、従来の React Hook Form, Zod を使用したフォームから、
+サーバーアクションと組み合わせたフォーム実装について、理解を深めてください。
 
-To learn more about Next.js, take a look at the following resources:
+### 推奨技術
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+このプロジェクトの難易度と趣旨を踏まえて、以下の使用をお勧めします。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Next.js 15 App Router
+- React Hook Form によるフォーム構築
+- Conform による Actions 対応のフォーム実装
+- Zod によるスキーマのバリデーション
+- TypeScript による型チェック
+- Tailwind CSS を用いたスタイリング
+- Vercel へのデプロイ
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎯 お題
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 「ユーザーストーリー」を全て満たす、アプリを構築してください。
+- 必要に応じて、スクリーンショットやデモサイトの URL を、参照してください。
+- なお、スタイルは、あなた自身で独自にカスタマイズすることが可能です。
+
+### 必須機能
+
+1. **ニュースレター登録フォーム**：
+   - メールアドレスを登録し、ニュースを購読
+   - （React 19 の Actions に対応した RHF ベータ版による実装）
+2. **個人用問い合わせフォーム**：
+   - 名前、メールアドレス、問い合わせ内容を入力し、送信
+   - （従来の React Hook Form を使用した実装）
+3. **法人用お問い合わせフォーム**：
+   - お問いわせカテゴリ、会社名、メールアドレス、問い合わせ内容を入力し、送信
+   - （Conform ライブラリを使用した実装）
+
+## ユーザーストーリー
+
+### 共通
+
+- [ ] ユーザーがサイトにアクセスすると、シンプルなホームページが表示される
+- [ ] ナビゲーションから各種フォームページに移動できる
+- [ ] 全てのフォームで適切なバリデーションが実装されている
+- [ ] 送信成功時に適切なフィードバックが表示される
+- [ ] アプリケーションがインターネット上に公開されており、誰でもアクセス可能である。
+
+### ニュースレター登録フォーム
+
+- [ ] ユーザーがメールアドレスを入力できる
+- [ ] バリデーションエラーが表示される
+- [ ] 送信後に成功メッセージが表示される
+
+### 個人用問い合わせフォーム（React 19 Actions + RHF Beta）
+
+- [ ] ユーザーが名前、メールアドレス、問い合わせ内容を入力できる
+- [ ] バリデーションエラーが表示される
+- [ ] 送信後に成功メッセージが表示される
+
+### 法人用お問い合わせフォーム（Conform）
+
+- [ ] ユーザーがお問いわせカテゴリ、会社名、メールアドレス、問い合わせ内容を入力できる
+- [ ] バリデーションエラーが表示される
+- [ ] 送信後に成功メッセージが表示される
