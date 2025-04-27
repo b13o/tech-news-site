@@ -1,10 +1,10 @@
 "use client";
 
-import { startTransition, useActionState } from "react";
+import { startTransition } from "react";
 import { useForm, Form } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, CheckCircle } from "lucide-react";
-import { subscribeToNewsletter } from "@/actions/newsletterActions";
+// import { subscribeToNewsletter } from "@/actions/newsletterActions";
 import {
   NewsletterFormValues,
   newsletterSchema,
@@ -14,16 +14,16 @@ import { cn } from "@/lib/utils";
 
 export default function NewsletterPage() {
   // Server Actionの状態管理
-  const [state, formAction, isPending] = useActionState(subscribeToNewsletter, {
-    // 初期状態
-    status: null,
-    message: "",
-  });
+  // const [state, formAction, isPending] = useActionState(subscribeToNewsletter, {
+  //   // 初期状態
+  //   status: null,
+  //   message: "",
+  // });
 
   const {
     register,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<NewsletterFormValues>({
     resolver: zodResolver(newsletterSchema),
     defaultValues: {
@@ -51,7 +51,7 @@ export default function NewsletterPage() {
           <Form
             control={control}
             onSubmit={({ formData }) =>
-              startTransition(() => formAction(formData))
+              startTransition(() => console.log(formData))
             }
           >
             <div className="space-y-6">
@@ -73,7 +73,7 @@ export default function NewsletterPage() {
                   )}
                   placeholder="example@email.com"
                   {...register("email")}
-                  disabled={isPending}
+                  disabled={isSubmitting}
                 />
                 {errors.email && (
                   <p className="mt-1 text-sm text-red-600">
@@ -85,9 +85,9 @@ export default function NewsletterPage() {
               <button
                 type="submit"
                 className="px-5 py-3 rounded-lg bg-[#7c9070] text-white font-medium hover:bg-[#6a7b5f] active:bg-[#5c6c52] focus:outline-none focus:ring-2 focus:ring-[#7c9070]/20 focus:ring-offset-2 transition-all duration-200 w-full flex items-center justify-center shadow-sm"
-                disabled={isPending}
+                disabled={isSubmitting}
               >
-                {isPending ? (
+                {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     購読処理中...
@@ -103,15 +103,13 @@ export default function NewsletterPage() {
           </Form>
 
           <div className="mt-4">
-            {state?.status === "success" && (
+            {isSubmitSuccessful && (
               <FormMessage
                 type="success"
-                message={
-                  state.message || "ニュースレターの購読ありがとうございます！"
-                }
+                message={"ニュースレターの購読ありがとうございます！"}
               />
             )}
-            {state?.status === "error" && (
+            {/* {state?.status === "error" && (
               <FormMessage
                 type="error"
                 message={
@@ -119,7 +117,7 @@ export default function NewsletterPage() {
                   "エラーが発生しました。お手数ですが、再度お試しください。"
                 }
               />
-            )}
+            )} */}
           </div>
         </div>
 

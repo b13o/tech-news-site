@@ -3,13 +3,13 @@
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { CheckCircle, Loader2 } from "lucide-react";
-import { submitCorporateContactForm } from "@/actions/corporateContactActions";
+// import { submitCorporateContactForm } from "@/actions/corporateContactActions";
 import {
   CorporateContactSchema,
   type CorporateContactValues,
 } from "@/schemas/corporateContactSchema";
 import { useFormStatus } from "react-dom";
-import { useActionState } from "react";
+import { useState } from "react";
 import FormMessage from "@/components/form-message";
 import { cn } from "@/lib/utils";
 
@@ -62,14 +62,19 @@ function SubmitButton() {
 }
 
 export default function CorporateContactPage() {
-  const [lastResult, action] = useActionState(
-    submitCorporateContactForm,
-    undefined
-  );
+  // const [lastResult, action] = useActionState(
+  //   submitCorporateContactForm,
+  //   undefined
+  // );
+
+  const [success, setSuccess] = useState(false);
 
   const [form, fields] = useForm<CorporateContactValues>({
     id: "contact-form",
-    lastResult,
+    onSubmit: async (values) => {
+      console.log("送信データ:", values);
+      setSuccess(true);
+    },
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: CorporateContactSchema });
     },
@@ -77,7 +82,6 @@ export default function CorporateContactPage() {
     shouldRevalidate: "onInput",
   });
 
-  const success = lastResult?.status === "success";
   const formErrors = form.errors;
   const categoryFieldErrors = fields.categories.errors;
 
@@ -110,7 +114,7 @@ export default function CorporateContactPage() {
           <form
             id={form.id}
             onSubmit={form.onSubmit}
-            action={action}
+            // action={action}
             noValidate
             className="space-y-6"
           >

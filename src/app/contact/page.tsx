@@ -46,30 +46,22 @@ export default function ContactPage() {
     console.log("フォームデータ:", data);
 
     try {
-      const response = await fetch("/api/contact/personal", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      // const response = await fetch("/api/contact/personal", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(data),
+      // });
+
+      // const result = await response.json();
+
+      setFormStatus({
+        state: "success",
+        message: "お問い合わせを受け付けました。折り返しご連絡いたします。",
       });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setFormStatus({
-          state: "success",
-          message: "お問い合わせを受け付けました。折り返しご連絡いたします。",
-        });
-        console.log("送信成功:", result);
-        reset();
-      } else {
-        console.error("送信エラー:", result);
-        setFormStatus({
-          state: "error",
-          message: "エラーが発生しました。お手数ですが、再度お試しください。",
-        });
-      }
+      console.log("送信成功:");
+      reset();
     } catch (err) {
       console.error("例外エラー:", err);
       setFormStatus({
